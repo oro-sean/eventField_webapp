@@ -6,5 +6,6 @@ scipy
 ipyfilechooser
 ipywidgets==7.7.1
 voila
+voila-material
 matplotlib
 seaborn
