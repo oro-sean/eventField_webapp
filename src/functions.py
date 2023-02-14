@@ -479,6 +479,9 @@ def update_default_chooser_path(chooser):
         chooser.default_path = chooser.selected_path
         chooser.title = chooser.title
 
+
+
+        
 def build_top_pane():
     from ipyfilechooser import FileChooser
     import ipywidgets as widgets
@@ -494,20 +497,34 @@ def build_top_pane():
     checkbox_dont_load_config = widgets.Checkbox(value=False,
                                                  description='Use Sails and Variables from RRP Config')
 
-    button_loadFile = widgets.Button(
-        description='Load Log and Config File'
-    )
-
-
     selector_box = widgets.HBox([log_file_chooser,config_file_chooser])
-    buttons_box = widgets.HBox([button_loadFile, checkbox_dont_load_config])
+    buttons_box = widgets.HBox([checkbox_dont_load_config])
     top_pane = widgets.VBox([selector_box,buttons_box])
 
     top_pane_dict = {'file_choosers': [log_file_chooser, config_file_chooser],
-                     'buttons': [button_loadFile, checkbox_dont_load_config],
+                     'buttons': [checkbox_dont_load_config],
                      'formatted': [top_pane]}
 
     return top_pane_dict
+
+def mid_pane_handler(top_pane_dict, loaded):
+    import ipywidgets as widgets
+    if not loaded:
+        not_loaded = [widgets.Label('Please Load Files')]
+        mid_pane = widgets.Box(not_loaded)
+        selector_dict_day = []
+        raceEvents = []
+        startDict = []
+        log = []
+        
+    if loaded:
+        selector_dict_day, plot_tab, log, raceEvents, marksDict, startDict = functions.load_and_process_worker(top_pane_dict)
+        mid_pane = widgets.VBox([plot_tab,selector_dict_day['formatted']])
+        
+    display(mid_pane)
+
+    
+    return selector_dict_day, raceEvents, startDict, log
 
 def build_plot_tabs(plots):
     import ipywidgets as widgets
