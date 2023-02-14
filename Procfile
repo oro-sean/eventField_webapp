@@ -1,1 +1,1 @@
-web: voila eventField_webapp.ipynb --port=$PORT
+web: voila eventField_webapp.ipynb --port=$PORT --no-browser
