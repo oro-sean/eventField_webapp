@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configfile>
+  <source val="textfile" />
+  <fieldseparator val="," />
+  <defaultvariables>
+    <datetime nameinlogfile="BST" expeditionformat="true" />
+    <gpslat nameinlogfile="Lat" formatinlogfile="dd.dd" />
+    <gpslon nameinlogfile="Lon" formatinlogfile="dd.dd" />
+  </defaultvariables>
+  <perfvariables>
+    <item name="TWS" nameinlogfile="TWS" units="kn" type="Scalar" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="TWA" nameinlogfile="TWA" units="°" type="Angle180" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="TWD" nameinlogfile="TWD" units="°" type="Angle360" decimals="1" ismagnetic="true" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="BSP" nameinlogfile="BSP" units="kn" type="Scalar" decimals="2" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="HEEL" nameinlogfile="Heel" units="°" type="Scalar" signdependsontack="true" invertsign="true" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="HDG" nameinlogfile="HDG" units="°" type="Angle360" decimals="1" ismagnetic="true" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="RUDDER" nameinlogfile="Rudder" units="°" type="Scalar" signdependsontack="true" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="BSPpol" units="kn" type="Scalar" decimals="2" calculationtype="FromPolar" calculationformula="" calculationorder="-2" comments="" />
+    <item name="BSPpol%" units="%" type="Scalar" decimals="1" calculationtype="Formula" calculationformula="100*BSP&amp;frasl;BSPpol" calculationorder="-1" comments="" />
+    <item name="VMG" units="kn" type="Scalar" decimals="2" calculationtype="Formula" calculationformula="BSP*COS(TWA*PI&amp;frasl;180)" calculationorder="-2" comments="" />
+    <item name="VMG_trg" units="kn" type="Scalar" decimals="2" calculationtype="FromPolar" calculationformula="" calculationorder="-2" comments="" />
+    <item name="VMG%" units="%" type="Scalar" decimals="1" calculationtype="Formula" calculationformula="100*VMG&amp;frasl;VMG_trg" calculationorder="0" comments="" />
+    <item name="BSP_trg" units="kn" type="Scalar" decimals="2" calculationtype="FromPolar" calculationformula="" calculationorder="-2" comments="" />
+    <item name="BSP_trg%" units="%" type="Scalar" decimals="1" calculationtype="Formula" calculationformula="100*BSP&amp;frasl;BSP_trg" calculationorder="0" comments="" />
+    <item name="TWA_trg" units="°" type="Angle180" decimals="1" calculationtype="FromPolar" calculationformula="" calculationorder="-2" comments="" />
+    <item name="AWA" nameinlogfile="AWA" units="°" type="Angle180" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="AWS" nameinlogfile="AWS" units="kn" type="Scalar" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="SOG" nameinlogfile="SOG" units="kn" type="Scalar" decimals="2" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="COG" nameinlogfile="COG" units="°" type="Angle360" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Orig_TWS" nameinlogfile="MWS" units="kn" type="Scalar" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Orig_TWA" nameinlogfile="MWA" units="°" type="Angle180" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="FORESTAY" nameinlogfile="Forestay" units="tons" type="Scalar" decimals="2" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="TRIM" nameinlogfile="Trim" units="°" type="Scalar" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="CUR_DIR" units="°" type="Angle360" decimals="0" calculationtype="Formula" calculationformula="custom" calculationorder="-2" comments="" />
+    <item name="CUR_RATE" units="kn" type="Scalar" decimals="1" calculationtype="Formula" calculationformula="custom" calculationorder="-2" comments="" />
+    <item name="BlwLn_m" nameinlogfile="BlwLn_m" units="m" type="Scalar" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Burn" nameinlogfile="Burn" units="s" type="Scalar" decimals="0" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Burn%" nameinlogfile="Burn%" units="%" type="Scalar" decimals="2" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Depth" nameinlogfile="Depth" units="m" type="Scalar" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Drift" nameinlogfile="Drift" units="kn" type="Scalar" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Dst2Ln" nameinlogfile="Dst2Ln" units="m" type="Scalar" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Leeway" nameinlogfile="Leeway" units="°" type="Angle180" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Mk_Lat" nameinlogfile="Mk Lat" units="" type="Scalar" decimals="8" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Mk_Lon" nameinlogfile="Mk Lon" units="" type="Scalar" decimals="8" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Port_lat" nameinlogfile="Port lat" units="" type="Scalar" decimals="8" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Port_lon" nameinlogfile="Port lon" units="" type="Scalar" decimals="8" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Rch2Ln_m" nameinlogfile="Rch2Ln_m" units="m" type="Scalar" decimals="1" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="RchTm2Ln" nameinlogfile="RchTm2Ln" units="s" type="Scalar" decimals="0" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Set" nameinlogfile="Set" units="°" type="Angle360" decimals="0" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Stbd_lat" nameinlogfile="Stbd lat" units="" type="Scalar" decimals="8" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Stbd_lon" nameinlogfile="Stbd lon" units="" type="Scalar" decimals="8" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Tm2Burn" nameinlogfile="Tm2Burn" units="s" type="Scalar" decimals="0" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Tm2Gn" nameinlogfile="Tm2Gn" units="s" type="Scalar" decimals="0" calculationtype="ReadInLog" calculationorder="0" comments="" />
+    <item name="Tack" units="" type="Scalar" decimals="1" calculationtype="Formula" calculationformula=" AWA&amp;frasl;ABS(AWA)" calculationorder="1" comments=" 1 STB or  -1 port" />
+    <item name="COURSE" units="°" type="Angle360" decimals="1" calculationtype="Formula" calculationformula=" HDG - ((ABS(AWA)&amp;frasl;AWA)*HEEL&amp;frasl;SQR( BSP )*10.1)" calculationorder="2" comments="" />
+    <item name="dBSPSOG" units="" type="Scalar" decimals="1" calculationtype="Formula" calculationformula=" BSP-SOG" calculationorder="3" comments="" />
+    <item name="COG_15" units="°" type="Angle360" decimals="1" calculationtype="Average" calculationformula="COG;15;backwards" calculationorder="100" comments="" />
+    <item name="Forestay" units="" type="Scalar" defaultvalue="0" decimals="0" calculationtype="ManualEntry" calculationformula="" calculationorder="0" comments="# turns from base" />
+    <item name="V1" units="" type="Scalar" defaultvalue="0" decimals="0" calculationtype="ManualEntry" calculationformula="" calculationorder="0" comments="# turns from base" />
+    <item name="D1" units="" type="Scalar" defaultvalue="0" decimals="0" calculationtype="ManualEntry" calculationformula="" calculationorder="0" comments="# turns from base" />
+    <item name="D2" units="" type="Scalar" defaultvalue="0" decimals="0" calculationtype="ManualEntry" calculationformula="" calculationorder="0" comments="# turns from base" />
+    <item name="mastButt" units="mm" type="Scalar" defaultvalue="0" decimals="0" calculationtype="ManualEntry" calculationformula="" calculationorder="0" comments="# mm from black line" />
+    <item name="Jib_batten_1" units="" type="FromList" defaultvalue="NotSet" decimals="0" calculationtype="ManualEntry" calculationformula="NotSet;Light;Medium;Heavy" calculationorder="0" comments="" />
+    <item name="Jib_batten_2" units="" type="FromList" defaultvalue="NotSet" decimals="0" calculationtype="ManualEntry" calculationformula="NotSet;Light;Medium;Heavy" calculationorder="0" comments="" />
+    <item name="Main_batten" units="" type="FromList" defaultvalue="NotSet" decimals="0" calculationtype="ManualEntry" calculationformula="NotSet;Light Backwards;Light Normal;Medium;Heavy" calculationorder="0" comments="" />
+    <item name="Chocks" units="" type="Scalar" defaultvalue="1.5" decimals="1" calculationtype="ManualEntry" calculationformula="" calculationorder="0" comments="# chocks infront of mast" />
+    <item name="MagVar" units="" type="Scalar" decimals="1" calculationtype="Formula" calculationformula="0.2" calculationorder="0" comments="" />
+  </perfvariables>
+  <countdownvariable labelsinlog="TmToGun" expedition="true" />
+  <sailinventory>
+    <item name="A1.5-1" sailtype="Masthead Spinnaker" sailgroup="S" weight="0" />
+    <item name="A2+-1" sailtype="Masthead Spinnaker" sailgroup="S" weight="0" />
+    <item name="A2-1" sailtype="Masthead Spinnaker" sailgroup="S" weight="0" />
+    <item name="A2-2" sailtype="Masthead Spinnaker" sailgroup="S" weight="0" />
+    <item name="A2-3" sailtype="Masthead Spinnaker" sailgroup="S" weight="0" />
+    <item name="A3-1" sailtype="Masthead Spinnaker" sailgroup="S" weight="0" />
+    <item name="A4-1" sailtype="Masthead Spinnaker" sailgroup="S" weight="0" />
+    <item name="J1.5-1" sailtype="Jib" sailgroup="H" weight="0" />
+    <item name="J1.5-2" sailtype="Jib" sailgroup="H" weight="0" />
+    <item name="J2.5-1" sailtype="Jib" sailgroup="H" weight="0" />
+    <item name="J2.5-2" sailtype="Jib" sailgroup="H" weight="0" />
+    <item name="J4-1" sailtype="Jib" sailgroup="H" weight="0" />
+    <item name="MN-1" sailtype="Mainsail" sailgroup="M" weight="0" />
+    <item name="MN-2" sailtype="Mainsail" sailgroup="M" weight="0" />
+  </sailinventory>
+  <twabin val="30;40;50;60;70;80;90;100;110;120;130;135;140;145;150;155;160;170;180" />
+  <upwindtwatolerance val="10" />
+  <downwindtwatolerance val="10" />
+  <createrawvariables val="False" />
+  <technicalproblemtypes>
+    <item val="Electronics" />
+    <item val="Sails" />
+    <item val="Mast" />
+    <item val="Structure" />
+    <item val="Other" />
+  </technicalproblemtypes>
+  <boatdayconfig>
+    <item property="Base_Rake" values="1690;1700;1720;NotSet" />
+    <item property="Location" values="NotSet;Other;Palma;Poole;Porto Cervo;Solent;Valencia" />
+  </boatdayconfig>
+  <boatproperties boatlengthft="60" />
+  <vsparsconfig datafreq="5" />
+  <sailsuptocolour>
+    <item name="A1.5-1" r="255" g="0" b="255" />
+    <item name="A2+-1" r="255" g="0" b="255" />
+    <item name="A2-1" r="255" g="0" b="255" />
+    <item name="A2-2" r="255" g="0" b="255" />
+    <item name="A2-3" r="255" g="0" b="255" />
+    <item name="A3-1" r="255" g="0" b="255" />
+    <item name="A4-1" r="255" g="0" b="255" />
+    <item name="J1.5-1" r="255" g="165" b="0" />
+    <item name="J1.5-2" r="255" g="165" b="0" />
+    <item name="J2.5-1" r="255" g="165" b="0" />
+    <item name="J2.5-2" r="255" g="165" b="0" />
+    <item name="J4-1" r="255" g="165" b="0" />
+    <item name="MN-1" r="0" g="255" b="0" />
+    <item name="MN-2" r="0" g="255" b="0" />
+    <item name="A2+-1/J2.5-2" r="238" g="130" b="238" />
+    <item name="A2-3/J2.5-2" r="205" g="133" b="63" />
+  </sailsuptocolour>
+</configfile>
