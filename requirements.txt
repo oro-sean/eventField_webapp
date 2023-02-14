@@ -5,7 +5,7 @@ statistics
 scipy
 ipyfilechooser
 ipywidgets==7.7.1
-voila
+voila==0.3.6
 voila-material
 matplotlib
 seaborn
