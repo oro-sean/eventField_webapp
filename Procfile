@@ -1,1 +1,1 @@
-web: voila eventField_webapp.ipynb --port=$PORT --no-browser
+web: voila --port=$PORT --no-browser --enable_nbextensions=True eventField_webapp.ipynb 
