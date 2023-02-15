@@ -9,3 +9,5 @@ voila==0.3.6
 voila-material
 matplotlib
 seaborn
+pathlib
+dropbox
