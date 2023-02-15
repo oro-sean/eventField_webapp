@@ -681,6 +681,8 @@ def write_xml(events_list, filePath_export, fileName_export):
 
     with open (str(fileName_export)+".xml", "wb") as files :
         export_tree.write(files)
+    
+    print('Event File exported as '+str(fileName_export))
 
 def export_to_xml_worker(selector_dict_day, raceEvents, startDict, log, filePath_export, fileName_export):
 
@@ -689,3 +691,5 @@ def export_to_xml_worker(selector_dict_day, raceEvents, startDict, log, filePath
     events_list_for_xml = events_for_xml(raceEvents, startDict, event_values, log)
 
     write_xml(events_list_for_xml, filePath_export, fileName_export)
+    
+    return events_list_for_xml
