@@ -11,4 +11,3 @@ matplotlib
 seaborn
 pathlib
 dropbox
-os
