@@ -360,6 +360,7 @@ def manualVars_from_rrp(path):
 
             else:
                 floatType.append((var.get('name')))
+                
 
     categorical = {k:v.split(';') for (k,v) in categorical.items()}
 
@@ -420,7 +421,7 @@ def build_selectors_race(variables_dict):
 
     float_selectors = {}
     for floatVariable in floatType:
-        float_selectors[floatVariable] = widgets.FloatText(desciption=floatVariable)
+        float_selectors[floatVariable] = widgets.FloatText(description=floatVariable)
 
     right_box = widgets.VBox([widget for widget in float_selectors.values()])
 
