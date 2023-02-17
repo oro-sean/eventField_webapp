@@ -337,6 +337,7 @@ def sails_from_rrp(path):
     sail_dict['spins'] = spins
 
     stays = jibs
+    stays = ['']+stays
     sail_dict['stays'] = stays
 
 
@@ -348,7 +349,7 @@ def manualVars_from_rrp(path):
     root = tree.getroot()
     categorical = {}
     integer = []
-    float = []
+    floatType = []
     for var in root.findall("./perfvariables/item[@calculationtype='ManualEntry']"):
         if var.get('type') == 'FromList':
             categorical[var.get('name')] = var.get('calculationformula')
@@ -358,17 +359,17 @@ def manualVars_from_rrp(path):
                 integer.append(var.get('name'))
 
             else:
-                float.append((var.get('name')))
+                floatType.append((var.get('name')))
 
     categorical = {k:v.split(';') for (k,v) in categorical.items()}
 
-    return categorical, integer, float
+    return categorical, integer, floatType
 
-def build_var_dict(sail_dict, categorical, integer, float):
+def build_var_dict(sail_dict, categorical, integer, floatType):
     variables_dict = {'sails':sail_dict,
                       'categorical': categorical,
                       'integer': integer,
-                      'float': float}
+                      'floatType': floatType}
 
     return variables_dict
 
@@ -376,7 +377,7 @@ def get_rrp_config(path, use_config):
 
     if use_config:
         sail_dict = sails_from_rrp(path)
-        categorical, integer, float = manualVars_from_rrp(path)
+        categorical, integer, floatType = manualVars_from_rrp(path)
 
 
     else:
@@ -386,9 +387,9 @@ def get_rrp_config(path, use_config):
                      'stays':['Staysail']}
         categorical = {}
         integer = {}
-        float = {}
+        floatType = {}
 
-    var_dict = build_var_dict(sail_dict,categorical, integer, float)
+    var_dict = build_var_dict(sail_dict,categorical, integer, floatType)
 
     return var_dict
 
@@ -398,7 +399,7 @@ def build_selectors_race(variables_dict):
     sail_dict = variables_dict['sails']
     categorical = variables_dict['categorical']
     integer = variables_dict['integer']
-    float = variables_dict['float']
+    floatType = variables_dict['floatType']
 
     sail_selectors = {}
     for sailType in sail_dict.keys():
@@ -418,8 +419,8 @@ def build_selectors_race(variables_dict):
     mid_box = widgets.VBox([item for item in int_selectors.values()])
 
     float_selectors = {}
-    for floatVariable in float:
-        float_selectors[floatVariable] = widgets.FloatText(desciption=str(floatVariable))
+    for floatVariable in floatType:
+        float_selectors[floatVariable] = widgets.FloatText(desciption=floatVariable)
 
     right_box = widgets.VBox([widget for widget in float_selectors.values()])
 
@@ -432,7 +433,7 @@ def build_selectors_race(variables_dict):
     selectors_dict = {'sails':sail_selectors,
                   'categorical': categorical_selectors,
                   'integer': int_selectors,
-                  'float': float_selectors,
+                  'floatType': float_selectors,
                   'formatted': race_tab}
 
     return selectors_dict
@@ -564,7 +565,7 @@ def get_event_values(selector_dict_day):
         event_values[race] = {'manual_entry': {},
                               'upwind_sails': {},
                               'downwind_sails': {}}
-        for manual_var_type in ['categorical', 'integer', 'float']:
+        for manual_var_type in ['categorical', 'integer', 'floatType']:
             for manual_var in selector_dict_day[1][manual_var_type].keys():
                 event_values[race]['manual_entry'][selector_dict_day[race][manual_var_type][manual_var].description] = selector_dict_day[1][manual_var_type][manual_var].value
 
