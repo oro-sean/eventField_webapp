@@ -496,7 +496,7 @@ def build_top_pane():
     config_file_chooser.title = 'Select config file'
     config_file_chooser.register_callback(update_default_chooser_path)
 
-    checkbox_dont_load_config = widgets.Checkbox(value=False,
+    checkbox_dont_load_config = widgets.Checkbox(value=True,
                                                  description='Use Sails and Variables from RRP Config')
 
     selector_box = widgets.HBox([log_file_chooser,config_file_chooser])
@@ -666,19 +666,39 @@ def write_xml(events_list, filePath_export, fileName_export):
     events_list.sort(key=lambda x: x[1])
     import xml.etree.ElementTree as ET
     export_root = ET.Element("daysail")
+    
+    
+    date = ET.Element("date")
+    date.set("val", events_list[0][0])
+    export_root.append(date)
+    
     events = ET.Element("events")
     export_root.append(events)
+
+    event = ET.SubElement(events,"event")
+    event.set("date",events_list[0][0])
+    event.set("time", events_list[0][1])
+    event.set("type", "DayStart")
+    event.set("attribute", "")
+    event.set("comments","")
+    event.set("labelalign","Top")
 
     for i in range(len(events_list)):
         event = ET.SubElement(events,"event")
         event.set("date",events_list[i][0])
         event.set("time", events_list[i][1])
         event.set("type", events_list[i][2])
-        event.set("attributes", str(events_list[i][3]))
-        event.set("commenst","")
+        event.set("attribute", str(events_list[i][3]))
+        event.set("comments","")
         event.set("labelalign","Top")
 
-
+    event = ET.SubElement(events,"event")
+    event.set("date",events_list[0][0])
+    event.set("time", events_list[len(events_list)][1])
+    event.set("type", "DayStop")
+    event.set("attribute", "")
+    event.set("comments","")
+    event.set("labelalign","Top")
     export_tree = ET.ElementTree(export_root)
 
     with open (str(fileName_export)+".xml", "wb") as files :
