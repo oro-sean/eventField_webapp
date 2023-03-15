@@ -658,6 +658,18 @@ def events_for_xml(raceEvents, startDict, event_values, log):
     events_from_start = start_events_for_xml(startDict, log, event_values)
 
     events_list = events_from_race + events_from_start
+    
+    log_timeSerries = log['TimeStamp'].dropna()
+    start = log['TimeStamp'].dropna()[1]
+    stop = log['TimeStamp'].dropna()[len(log_timeSerries)]
+    
+    events_list = events_list + [[str(start.date()),str(start.time()),"DayStart",""]] + [[str(stop.date()),str(stop.time()),"DayStop",""]]
+    
+    
+    print(events_list + [[str(start.date()),str(start.time()),"DayStart",""]])
+
+    
+    
 
 
     return events_list
@@ -675,13 +687,6 @@ def write_xml(events_list, filePath_export, fileName_export):
     events = ET.Element("events")
     export_root.append(events)
 
-    event = ET.SubElement(events,"event")
-    event.set("date",events_list[0][0])
-    event.set("time", events_list[0][1])
-    event.set("type", "DayStart")
-    event.set("attribute", "")
-    event.set("comments","")
-    event.set("labelalign","Top")
 
     for i in range(len(events_list)):
         event = ET.SubElement(events,"event")
@@ -692,13 +697,6 @@ def write_xml(events_list, filePath_export, fileName_export):
         event.set("comments","")
         event.set("labelalign","Top")
 
-    event = ET.SubElement(events,"event")
-    event.set("date",events_list[0][0])
-    event.set("time", events_list[len(events_list)][1])
-    event.set("type", "DayStop")
-    event.set("attribute", "")
-    event.set("comments","")
-    event.set("labelalign","Top")
     export_tree = ET.ElementTree(export_root)
 
     with open (str(fileName_export)+".xml", "wb") as files :
