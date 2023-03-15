@@ -665,8 +665,7 @@ def events_for_xml(raceEvents, startDict, event_values, log):
     
     events_list = events_list + [[str(start.date()),str(start.time()),"DayStart",""]] + [[str(stop.date()),str(stop.time()),"DayStop",""]]
     
-    
-    print(events_list + [[str(start.date()),str(start.time()),"DayStart",""]])
+
 
     
     
@@ -674,11 +673,14 @@ def events_for_xml(raceEvents, startDict, event_values, log):
 
     return events_list
 
-def write_xml(events_list, filePath_export, fileName_export):
+def write_xml(events_list, filePath_export, fileName_export, boatName):
     events_list.sort(key=lambda x: x[1])
     import xml.etree.ElementTree as ET
     export_root = ET.Element("daysail")
     
+    boat = ET.Element("boat")
+    boat.set("val", boatName)
+    export_root.append(boat)
     
     date = ET.Element("date")
     date.set("val", events_list[0][0])
@@ -704,12 +706,12 @@ def write_xml(events_list, filePath_export, fileName_export):
     
     print('Event File exported as '+str(fileName_export))
 
-def export_to_xml_worker(selector_dict_day, raceEvents, startDict, log, filePath_export, fileName_export):
+def export_to_xml_worker(selector_dict_day, raceEvents, startDict, log, filePath_export, fileName_export, boatName):
 
     event_values = get_event_values(selector_dict_day)
 
     events_list_for_xml = events_for_xml(raceEvents, startDict, event_values, log)
 
-    write_xml(events_list_for_xml, filePath_export, fileName_export)
+    write_xml(events_list_for_xml, filePath_export, fileName_export, boatName)
     
     return events_list_for_xml
