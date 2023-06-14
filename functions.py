@@ -202,23 +202,6 @@ def find_events(startDict, rawLog):
 
         raceEvents[startNo], eventLog[startNo] = FindFeature(raceFrame, startIndex, startNo)
 
-    marks = []
-    for event in raceEvents[startNo]:
-        if len(event) > 0:
-            try:
-                logLine = raceFrame.iloc[event[1]-60] # return the line of the log file 1min. before the mark rounding
-                lat = logLine['MkLat'] # record the active mark Lat
-                lon = logLine['MkLon'] # record the active mark Lon
-
-            except:
-                logLine = raceFrame.iloc[event[1]] # if finding an active mark fails, take the mark location as the location of the boat at the race event
-                lat = logLine['Lat'] # record the Lat
-                lon = logLine['Lon'] # record the Lon
-
-            marks.append([lat,lon])
-
-    marksDict[startNo] = marks
-
     raceIndex = {}
     marksDict = {}
     raceEvents = {}
@@ -246,16 +229,17 @@ def find_events(startDict, rawLog):
         raceFrame = raceFrame.assign(Dist = list(np.square(raceFrame['Lat']-refLat) + np.square(raceFrame['Lon']-refLon)))  # calculate the distance from the ref point (midline) to the boats current location
 
         raceEvents[startNo], eventLog[startNo] = FindFeature(raceFrame, startIndex, startNo)
+        
+        if len(raceEvents[startNo]) > 1:
 
-        if raceEvents[startNo][0]:
 
             marks = []
             for event in raceEvents[startNo]:
 
                 try:
                     logLine = raceFrame.iloc[event[1]-60] # return the line of the log file 1min. before the mark rounding
-                    lat = logLine['Mk Lat'] # record the active mark Lat
-                    lon = logLine['Mk Lon'] # record the active mark Lon
+                    lat = logLine['MkLat'] # record the active mark Lat
+                    lon = logLine['MkLon'] # record the active mark Lon
                 except:
                     logLine = raceFrame.iloc[event[1]] # if finding an active mark fails, take the mark location as the location of the boat at the race event
                     lat = logLine['Lat'] # record the Lat
@@ -264,6 +248,9 @@ def find_events(startDict, rawLog):
                 marks.append([lat,lon])
 
             marksDict[startNo] = marks
+       
+            
+
 
     return     raceIndex, marksDict, raceEvents, eventLog
 
@@ -277,7 +264,7 @@ def plot_race(startDict, raceEvents, rawLog, marksDict, raceIndex):
     plots = {}
 
     for startNo in startDict.keys():
-        if raceEvents[startNo][0]:
+        if len(raceEvents[startNo]) > 1:
             plotFrame = rawLog.iloc[startDict[startNo][0]-360:raceEvents[startNo][-1][2]] # create a dataframe with race data to plot from 6min before the start to the finish
             leg = [] # create an empty list to store the leg id in
             eventNo = 0 # set the event to 0 (index)
@@ -334,6 +321,7 @@ def sails_from_rrp(path):
 
     for sail in root.findall("./sailinventory/item[@sailgroup='S']"):
         spins.append(sail.get('name'))
+        
     sail_dict['spins'] = spins
 
     stays = jibs
@@ -578,7 +566,7 @@ def get_event_values(selector_dict_day):
 
 def tidy_last_race_event(raceEvents):
     for race in raceEvents.keys():
-        if len(raceEvents[race][0]):
+        if len(raceEvents[race]) > 1:
             raceEvents[race][-1][0] != 'Finish'
             raceEvents[race][-1][0] = 'Finish'
 
@@ -590,7 +578,7 @@ def race_events_for_xml(raceEvents, event_values, log):
 
     for race in raceEvents.keys():
         mark_no = 1
-        if len(raceEvents[race][0]) > 0:
+        if len(raceEvents[race]) > 1:
             for event in raceEvents[race]:
                 date = str(log['TimeStamp'][event[2]].date())
                 time = str(log['TimeStamp'][event[2]].time())
@@ -661,7 +649,7 @@ def events_for_xml(raceEvents, startDict, event_values, log):
     
     log_timeSerries = log['TimeStamp'].dropna()
     start = log['TimeStamp'].dropna()[1]
-    stop = log['TimeStamp'].dropna()[len(log_timeSerries)]
+    stop = log['TimeStamp'].dropna()[len(log_timeSerries)-1]
     
     events_list = events_list + [[str(start.date()),str(start.time()),"DayStart",""]] + [[str(stop.date()),str(stop.time()),"DayStop",""]]
     
